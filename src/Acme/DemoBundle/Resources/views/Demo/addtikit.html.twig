@@ -1,0 +1,15 @@
+{% extends "AcmeDemoBundle::layout.html.twig" %}
+
+{% block title "Symfony - Add Tikit form" %}
+
+{% block content %}
+    <form action="{{ path('_demo_contact') }}" method="POST" id="contact_form">
+        {{ form_errors(form) }}
+
+        {{ form_row(form.tikit_name) }}
+        {{ form_row(form.tikit_url) }}
+
+        {{ form_rest(form) }}
+        <input type="submit" value="Send" class="symfony-button-grey" />
+    </form>
+{% endblock %}

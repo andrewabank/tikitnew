@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tikit\TikitBundle\Entity\SiteSpam" table="site_spam">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="tikitId" type="integer" column="tikit_id" nullable="false"/>
+    <field name="commentId" type="integer" column="comment_id" nullable="false"/>
+    <field name="dateAdded" type="datetime" column="date_added" nullable="false"/>
+    <field name="status" type="boolean" column="status" nullable="false"/>
+    <field name="dateChanged" type="datetime" column="date_changed" nullable="false"/>
+    <many-to-one field="user" target-entity="FosUser">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

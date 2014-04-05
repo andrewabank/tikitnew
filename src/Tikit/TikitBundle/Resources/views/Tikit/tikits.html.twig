@@ -1,0 +1,63 @@
+{% extends "TikitTikitBundle::layout_boots.html.twig" %}
+
+{% block title "Symfony - Tikits" %}
+
+{% block javascripts %}
+    <script src="{{ asset('/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/js/bootswatch.js') }}"></script>
+    <script src="{{ asset('js/tikit/tikit.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+        <tbody>
+            {%for tikit in tikits%}
+                <div class="entry unvoted">
+                    <div class="midcol" name="{{tikit.0.id}}">
+                        <div class="{% if tikit.vote == 1 %}arrow up login-required checked {% else %} arrow up login-required
+        {% endif %}" name="0" onclick="vote_up(this);return false;" role="button" aria-label="upvote" tabindex="0">
+                        up</div>
+                        <div class="score likes">•</div>
+                        <div class="score unvoted" style="display:none;">•</div>
+                        <div class="score dislikes" style="display:none;">•</div>
+                        <div class="{% if tikit.vote == -1 %}arrow up login-required checked {% else %} arrow up login-required
+        {% endif %}" name="0" onclick="vote_down(this);return false;" role="button" aria-label="downvote" tabindex="0">
+                        down</div>
+                    </div>
+                    <a class="title loggedin" href="{{tikit.0.tikitUrl}}" tabindex="1"><h2 id="type-blockquotes">{{tikit.0.tikitTitle}}</h2></a>
+                    <div class="entry unvoted">
+                    <p class="title">
+                    <a class="title loggedin" href="{{tikit.0.tikitUrl}}" tabindex="1">{{tikit.0.tikitTitle}}</a>
+                    <span class="domain">(<a href="/domain/i.imgur.com/">i.imgur.com</a>)</span></p><span>{{tikit.0.score}}</span>
+                    <p class="tagline">поступило <time title="Sun Nov 3 09:19:06 2013 UTC" datetime="2013-11-03T09:19:06+00:00">{{tikit.0.dateAdded|date('Y-m-d H:i:s')}}</time> <a href="http://ru.reddit.com/user/jkjkjij22" class="author id-t2_6sczy">{{tikit.username}}</a>
+                    <span class="userattrs"></span> в <a href="http://ru.reddit.com/r/pics/" class="subreddit hover">pics</a>
+                    </p><ul class="flat-list buttons">
+                    <li class="first">
+                    <a class="comments" href="http://ru.reddit.com/r/pics/comments/1psut6/honest_canadian_commuters_the_workers_were/" target="_parent">{{tikit.0.commentCount}} комментарів</a>
+                    </li>
+                </div>
+                </div>
+            {%endfor%}
+        </tbody>
+        {% if app.user %}
+            <input type="hidden" name="user_id" id="user_id" value="{{ app.user.id }}">
+        {% else %}
+        {% endif %}
+        <div class="span4">
+            {%if total_pages > 0%}
+                <div class="pagination">
+                    {%for i in 1..total_pages%}
+                    <ul>
+                        {%if loop.first%}
+                            <li class="prev {%if current_page==1%} disabled{%endif%}"><a href="#"><-Previous</a></li>
+                        {%endif%}
+                        <li {%if current_page==loop.index%}class="active"{%endif%}><a href="">{{loop.index}}</a></li>
+                        {%if loop.last%}
+                            <li class="next {%if current_page==total_pages%} disabled{%endif%}"><a href="#">Next-></a></li>
+                        {%endif%}
+                    </ul>
+                    {%endfor%}
+                </div>
+            {%endif%}
+        </div>
+{% endblock %}

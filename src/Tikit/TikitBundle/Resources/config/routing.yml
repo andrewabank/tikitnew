@@ -1,0 +1,29 @@
+
+tikit_tikitsss:
+    resource: "@TikitTikitBundle/Controller/TikitController.php"
+    type:     annotation
+    prefix:   /t
+
+tikit_tikit:
+    path: /t/{id}
+    defaults:  { _controller: TikitTikitBundle:Tikit:tikit }
+
+tikit_tikits:
+    path: /main/{page}
+    defaults:  { _controller: TikitTikitBundle:Tikit:tikits }
+
+_tikit_addcomment:
+    path: /addcomment/
+    defaults:  { _controller: TikitTikitBundle:Comment:addcomment }
+
+_tikit_addtikitvote:
+    path: /addtikitvote/
+    defaults:  { _controller: TikitTikitBundle:Tikit:vote }
+
+_tikit_loadlinkdata:
+    path: /loadlinkdata/
+    defaults:  { _controller: TikitTikitBundle:Tikit:loadlinkdata }
+
+_tikit_addtikit:
+    path: /addtikit/tikit
+    defaults:  { _controller: TikitTikitBundle:Tikit:addtikit }

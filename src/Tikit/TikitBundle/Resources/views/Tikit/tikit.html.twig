@@ -1,0 +1,65 @@
+{% extends "TikitTikitBundle::layout_boots.html.twig" %}
+
+{% block title "Tikit" %}
+
+{% block stylesheets %}
+    <link href="{{ asset('/css/tikit/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock%}
+{% block javascripts %}
+    <script src="{{ asset('/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/js/bootswatch.js') }}"></script>
+    <script src="{{ asset('js/tikit/comment.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+        <tbody>
+                <p class="title">
+                <a class="title loggedin" href="{{tikit.tikitUrl}}" tabindex="1">{{tikit.tikitTitle}}</a>
+                <span class="domain">(<a href="/domain/i.imgur.com/">i.imgur.com</a>)</span>
+                </p>
+                <p>{{tikit.score}}</p>
+                <p class="tagline">поступило <time title="Sun Nov 3 09:19:06 2013 UTC" datetime="2013-11-03T09:19:06+00:00">{{tikit.dateAdded|date('Y-m-d H:i:s')}}</time> <a href="http://ru.reddit.com/user/jkjkjij22" class="author id-t2_6sczy"></a>
+                <span class="userattrs"></span> в <a href="http://ru.reddit.com/r/pics/" class="subreddit hover">pics</a>
+                </p>
+                <ul class="flat-list buttons">
+                <li class="first">
+                <a class="comments" href="http://ru.reddit.com/r/pics/comments/1psut6/honest_canadian_commuters_the_workers_were/" target="_parent">{{tikit.commentCount}} комментарів {{user.username}}{{user.id}}</a>
+                </li>
+                </ul>
+                {% if app.user %}
+                <form action="" class="usertext cloneable" id="form-comment">
+                    <input type="hidden" name="tikit_id" id="tikit_id" value="{{tikit.id}}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ app.user.id }}">
+                    <div class="usertext-edit" style="">
+                        <div>
+                        <textarea rows="1" cols="1" name="text" id="comment" class=""></textarea>
+                        </div>
+                        <div class="bottom-area">
+                        <div class="usertext-buttons">
+                            <button type="submit" onclick="submit_usertext();return false;" class="save">save</button>
+                            <span class="status"></span>
+                        </div>
+                        <a href="/wiki/reddiquette" class="reddiquette" target="_blank" tabindex="100">реддикет</a>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                {% endif %}
+                <div>
+                {%for comment in comments%}
+                        <p>
+                        {{comment.0.commentBody}}
+                        {{comment.0.id}}
+                        {{comment.0.dateAdded|date('Y-m-d H:i:s')}}
+                        {{comment.username}}
+                        {{comment.id}}
+                        </p>
+                {%endfor%}
+                </div>
+
+            </div>
+        </tbody>
+        <div class="span4">
+
+        </div>
+{% endblock %}
